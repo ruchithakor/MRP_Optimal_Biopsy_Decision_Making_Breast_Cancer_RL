@@ -24,7 +24,7 @@ R = {row["age"]: {
     } for _, row in rewards_df.iterrows()}
 
 # Read the transition probabilities from the CSV file 'transitions.csv' is in the current working directory
-transitions_df = pd.read_csv('/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities.csv')
+transitions_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities.csv")
 
 # Initialize the transition probabilities dictionary for each age
 P = {age: {} for age in range(40, 100)}
