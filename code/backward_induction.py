@@ -178,7 +178,7 @@ data = []
 for age in range(40, 100):
     for state in S:
         data.append({
-            "time_stamp": age, "state": state, "optimal_action": policy[age][state], "value": U[age][state]
+            "time_stamp": age, "state": state, "action": policy[age][state], "value": U[age][state]
         })
 
 # Create a DataFrame from the list of tuples
@@ -189,12 +189,12 @@ df.to_csv(results_filename, index = False)
 
 # Get the threshold for biopsy at each age
 # Filter the DataFrame for rows where Action is 'B'
-filtered_df = df[df['optimal_action'] == 'B']
+filtered_df = df[df['action'] == 'B']
 
 # Group by 'Time Step' and get the first occurrence of 'B' for each time step
 first_b_df = filtered_df.groupby('time_stamp').first().reset_index()
 
 # Select the necessary columns and save to csv file
-result_df = first_b_df[['time_stamp', 'threshold_state']]
+result_df = first_b_df[['time_stamp', 'state']]
 threshold_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/backward_induction_threshold.csv"
 result_df.to_csv(threshold_filename, index = False)

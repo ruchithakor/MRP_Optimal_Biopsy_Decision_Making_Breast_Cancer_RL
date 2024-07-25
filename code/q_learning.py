@@ -291,19 +291,19 @@ q_table_df.to_csv(q_table_filename, index=False)
 policy_data = []
 for age in range(40, 100):
     for state in S:
-        policy_data.append({'Time Step': age, 'State': state, 'Action': policy[age][state]})
+        policy_data.append({'time_stamp': age, 'state': state, 'action': policy[age][state]})
 q_policy_df = pd.DataFrame(policy_data)
 policy_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/qlearning_policy.csv"
 q_policy_df.to_csv(policy_filename, index=False)
 
 
 # Filter the DataFrame for rows where Action is 'B'
-filtered_df = q_policy_df[q_policy_df['Action'] == 'B']
+filtered_df = q_policy_df[q_policy_df['action'] == 'B']
 
 # Group by 'Time Step' and get the first occurrence of 'B' for each time step
-first_b_df = filtered_df.groupby('Time Step').first().reset_index()
+first_b_df = filtered_df.groupby('time_stamp').first().reset_index()
 
 # Select the necessary columns
-result_df = first_b_df[['time_stamp', 'threshold_state']]
+result_df = first_b_df[['time_stamp', 'state']]
 q_threshold_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/qlearning_threshold.csv"
 result_df.to_csv(q_threshold_filename, index=False)

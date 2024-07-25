@@ -1,4 +1,4 @@
-time_stamp,state,optimal_action,value
+time_stamp,state,action,value
 40,0,AM,26.02572838
 40,1,AM,38.168188
 40,2,AM,38.168188
