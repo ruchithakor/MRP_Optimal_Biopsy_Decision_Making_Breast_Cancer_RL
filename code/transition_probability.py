@@ -1,4 +1,4 @@
-"""This python file calculates transition probability of moving from one state(risk score S = 1, 2, ..., 100) to other 
+"""This python file calculates transition probability of moving from one state(risk score S = 0, 1, 2, ..., 100) to other 
 for every time stamp(age) 40-100
 """
 

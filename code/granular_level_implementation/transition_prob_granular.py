@@ -71,9 +71,9 @@ transitions_df = pd.DataFrame(transitions_list)
 
 # Format the DataFrame to avoid scientific notation, round to 4 decimal places.
 for col in transitions_df.columns:
-    if transitions_df[col].dtype == 'float':
+    if transitions_df[col].dtype == "float":
         transitions_df[col] = transitions_df[col].map(lambda x: '{:.5f}'.format(x))
 
 # Save the transition probabilities to a CSV file
 transitions_csv_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities_granular.csv"
-transitions_df.to_csv(transitions_csv_filename, index=False)
+transitions_df.to_csv(transitions_csv_filename, index = False)
