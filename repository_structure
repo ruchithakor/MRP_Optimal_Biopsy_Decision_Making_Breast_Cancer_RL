@@ -1,15 +1,47 @@
 MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/
 │
-├── code/
-│   ├── back_induction_policy.py
-│   ├── q_learning_policy.py
-│   ├── test_policy.py
-│   └── test_policy_2.py
+├── analysis/
+│   ├── backward_induction_threshold_granular.xlsx
+│   ├── backward_induction_threshold.xlsx
+│   ├── qlearning_threshold_granular.xlsx
+│   ├── qlearning_threshold.xlsx
+│   └── RSNA_data_testing.xlsx
 │
-├── data/
-│   └── rsna_data.csv
+├── code/
+│   ├── granular_level_implementation/
+│   │   ├── backward_induction_granular.py
+│   │   ├── q_learning_granular.py
+│   │   ├── test_policy_granular.py
+│   │   └── transition_prob_granular.py
+│   ├── backward_induction.py
+│   ├── eda.ipynb
+│   ├── q_learning.py
+│   ├── test_policy.py
+│   └── transition_probability.py
+│
+├── dataset/
+│   ├── all_women_data.csv
+│   ├── state_transition_probabilities_granular.csv
+│   └── state_transition_probabilities.csv
+│
+├── deliverables/
+│   ├── MRP_LiteratureReview_EDA_Parmar.pdf
+│   ├── MRP_Methodology_Experiments_Parmar.pdf
+│   ├── MRP_proposal_Parmar_Ruchi.pdf
+│   └── MRP_Results_Parmar.pdf
 │
 ├── results/
-│   └── optimal_biopsy_decision_results.pdf
+│   └── granular_level_results/
+│   │   ├── backward_induction_policy_granular.csv
+│   │   ├── backward_induction_threshold_granular.csv
+│   │   ├── qlearning_policy_granular.csv
+│   │   ├── qlearning_table_granular.csv
+│   │   └── qlearning_threshold_granular.csv
+│   ├── backward_induction_policy.csv
+│   ├── backward_induction_threshold.csv
+│   ├── qlearning_policy.csv
+│   ├── qlearning_table.csv
+│   └── qlearning_threshold.csv
 │
+├── repository_structure
 └── README.md
