@@ -45,4 +45,9 @@ Navigate to the directory MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL an
 ```bash
 cd MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL
 python code/backward_induction.py
+# for granular level
+python code/granular_level_implementation/backward_induction_granular.py
 ```
+
+### Author
+Ruchi Parmar
