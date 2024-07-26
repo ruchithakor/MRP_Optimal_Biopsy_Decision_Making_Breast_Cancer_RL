@@ -4,10 +4,12 @@
 # Import required packages
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 # Load the required data files
-rewards_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/rewards.csv")
-transitions_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities_granular.csv")
+cwd_path = str(Path.cwd())
+rewards_df = pd.read_csv(cwd_path + "/dataset/rewards.csv")
+transitions_df = pd.read_csv(cwd_path + "/dataset/state_transition_probabilities_granular.csv")
 
 # Define the set of states, actions, rewards, and transition probabilities
 S = np.round(np.arange(0, 100.1, 0.1), 1)
@@ -131,7 +133,7 @@ def test_policy(policy, num_episodes = 1000, max_prob_state_1 = 0.2, max_prob_st
     return np.mean(results), np.std(results)
 
 # Load the policy from backward induction data from the CSV file
-bi_policy_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/backward_induction_policy_granular.csv")
+bi_policy_df = pd.read_csv(cwd_path + "/results/granular_level_results/backward_induction_policy_granular.csv")
 
 # Convert the policy DataFrame into a dictionary
 policy_backward_induction = {}
@@ -147,7 +149,7 @@ for index, row in bi_policy_df.iterrows():
     
     policy_backward_induction[t][state] = optimal_action
 
-ql_policy_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/qlearning_policy_granular.csv")
+ql_policy_df = pd.read_csv(cwd_path + "/results/granular_level_results/qlearning_policy_granular.csv")
 
 # Convert the policy DataFrame into a dictionary
 policy_q_learning = {}

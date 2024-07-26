@@ -15,7 +15,7 @@ A = ["AM", "B"]  # Actions: Annual Mammogram (AM) and Biopsy (B)
 T = 60  # Time steps, e.g., from age 40 to 100
 
 # Read the rewards from the CSV file into a pandas DataFrame
-rewards_df = pd.read_csv(cwd_path + "dataset/rewards.csv")
+rewards_df = pd.read_csv(cwd_path + "/dataset/rewards.csv")
 
 # Convert the DataFrame into a dictionary with the required format for the MDP
 # The dictionary will be structured as R[age][state][action]

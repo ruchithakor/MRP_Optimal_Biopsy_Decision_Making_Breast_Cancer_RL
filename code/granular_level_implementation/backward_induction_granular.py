@@ -5,16 +5,18 @@ at granular level of states.
 # import required packages
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 # Define the set of states, actions, rewards, and transition probabilities
-transitions_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities_granular.csv")
+cwd_path = str(Path.cwd())
+transitions_df = pd.read_csv(cwd_path + "/dataset/state_transition_probabilities_granular.csv")
 S = np.sort(transitions_df["From State"].unique())
 
 A = ["AM", "B"]  # Actions: Annual Mammogram (AM) and Biopsy (B)
 T = 60  # Time steps, e.g., from age 40 to 99
 
 # Read the rewards from the CSV file into a pandas DataFrame
-rewards_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/rewards.csv")
+rewards_df = pd.read_csv(cwd_path + "/dataset/rewards.csv")
 
 # Convert the DataFrame into a dictionary with the required format for the MDP
 # The dictionary will be structured as R[t][state][action]
@@ -180,7 +182,7 @@ for age in range(40, 100):
 # Create a DataFrame from the list of tuples
 df = pd.DataFrame(data)
 # Save the transition probabilities to a CSV file
-results_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/backward_induction_policy_granular.csv"
+results_filename = cwd_path + "/results/granular_level_results/backward_induction_policy_granular.csv"
 df.to_csv(results_filename, index = False)
 
 # Filter the DataFrame for rows where Action is 'B'
@@ -191,5 +193,5 @@ first_b_df = filtered_df.groupby("time_stamp").first().reset_index()
 
 # Select the necessary columns
 result_df = first_b_df[["time_stamp", "state"]]
-b_r_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/backward_induction_threshold_granular.csv"
+b_r_filename = cwd_path + "/results/granular_level_results/backward_induction_threshold_granular.csv"
 result_df.to_csv(b_r_filename, index = False)

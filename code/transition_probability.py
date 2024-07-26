@@ -4,9 +4,11 @@ for every time stamp(age) 40-100
 
 # Import required packages
 import pandas as pd
+from pathlib import Path
 
 # read the data from all women data csv file
-df_women = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/all_women_data.csv")
+cwd_path = str(Path.cwd())
+df_women = pd.read_csv(cwd_path + "/dataset/all_women_data.csv")
 
 # Initialize the transition counts and totals for each age
 transition_counts = {age: {} for age in range(39, 100)}
@@ -72,5 +74,5 @@ for col in transitions_df.columns:
         transitions_df[col] = transitions_df[col].map(lambda x: "{:.5f}".format(x))
 
 # Save the transition probabilities to a CSV file
-transitions_csv_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities.csv"
+transitions_csv_filename = cwd_path + "/dataset/state_transition_probabilities.csv"
 transitions_df.to_csv(transitions_csv_filename, index=False)

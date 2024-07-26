@@ -5,6 +5,7 @@ at granular level s = 0, 0.1, 0.2, ..., 100.
 # Import required packages
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 # Define the set of states, actions, rewards, and transition probabilities
 
@@ -15,7 +16,8 @@ A = ["AM", "B"]  # Actions: Annual Mammogram (AM) and Biopsy (B)
 T = 60  # Time steps, e.g., from age 40 to 100
 
 # Read the rewards from the CSV file into a pandas DataFrame
-rewards_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/rewards.csv")
+cwd_path = str(Path.cwd())
+rewards_df = pd.read_csv(cwd_path + "/dataset/rewards.csv")
 
 # Convert the DataFrame into a dictionary with the required format for the MDP
 R = {row["age"]: {
@@ -25,7 +27,7 @@ R = {row["age"]: {
     } for _, row in rewards_df.iterrows()}
 
 # Assuming the CSV file 'transitions.csv' is in the current working directory
-transitions_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities_granular.csv")
+transitions_df = pd.read_csv(cwd_path + "/dataset/state_transition_probabilities_granular.csv")
 
 # Initialize the transition probabilities dictionary for each age
 P = {age: {} for age in range(40, 100)}
@@ -281,7 +283,7 @@ for age in range(40, 100):
 q_table_df = pd.DataFrame(q_table_data)
 ß
 # Save the Q-table data to a CSV file
-q_table_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/qlearning_table_granular.csv"
+q_table_filename = cwd_path + "/results/granular_level_results/qlearning_table_granular.csv"
 q_table_df.to_csv(q_table_filename, index = False)
 
 # Save the optimal policy to a CSV file
@@ -290,7 +292,7 @@ for age in range(40, 100):
     for state in S:
         policy_data.append({"time_stamp": age, "state": state, "action": policy[age][state]})
 policy_df = pd.DataFrame(policy_data)
-policy_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/qlearning_policy_granular.csv"
+policy_filename = cwd_path + "/results/granular_level_results/qlearning_policy_granular.csv"
 policy_df.to_csv(policy_filename, index=False)
 
 # Filter the DataFrame for rows where Action is 'B'
@@ -301,5 +303,5 @@ first_b_df = filtered_df.groupby("time_stamp").first().reset_index()
 
 # Select the necessary columns
 result_df = first_b_df[["time_stamp", "state"]]
-q_r_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/granular_level_results/qlearning_threshold_granular.csv"
+q_r_filename = cwd_path + "/results/granular_level_results/qlearning_threshold_granular.csv"
 result_df.to_csv(q_r_filename, index = False)

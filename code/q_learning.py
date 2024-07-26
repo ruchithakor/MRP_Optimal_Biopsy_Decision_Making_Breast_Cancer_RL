@@ -4,16 +4,18 @@
 # Import required packages
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 # Define the set of states, actions, rewards, and transition probabilities
-all_women_data = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/all_women_data.csv")
+cwd_path = str(Path.cwd())
+all_women_data = pd.read_csv(cwd_path + "/dataset/all_women_data.csv")
 S = np.sort(all_women_data['Risk Score'].unique())
 
 A = ['AM', 'B']  # Actions: Annual Mammogram (AM) and Biopsy (B)
 T = 60  # Time steps, e.g., from age 40 to 100
 
 # Read the rewards from the CSV file into a pandas DataFrame
-rewards_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/rewards.csv")
+rewards_df = pd.read_csv(cwd_path + "/dataset/rewards.csv")
 
 # Convert the DataFrame into a dictionary with the required format for the MDP
 # The dictionary will be structured as R[age][state][action]
@@ -24,7 +26,7 @@ R = {row["age"]: {
     } for index, row in rewards_df.iterrows()}
 
 # Read the transition probabilities from the CSV file 'transitions.csv' is in the current working directory
-transitions_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities.csv")
+transitions_df = pd.read_csv(cwd_path + "/dataset/state_transition_probabilities.csv")
 
 # Initialize the transition probabilities dictionary for each age
 P = {age: {} for age in range(40, 100)}
@@ -284,7 +286,7 @@ for age in range(40, 100):
 q_table_df = pd.DataFrame(q_table_data)
 
 # Save the Q-table data to a CSV file
-q_table_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/qlearning_table.csv"
+q_table_filename = cwd_path + "/results/qlearning_table.csv"
 q_table_df.to_csv(q_table_filename, index=False)
 
 # Save the optimal policy to a CSV file
@@ -293,7 +295,7 @@ for age in range(40, 100):
     for state in S:
         policy_data.append({'time_stamp': age, 'state': state, 'action': policy[age][state]})
 q_policy_df = pd.DataFrame(policy_data)
-policy_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/qlearning_policy.csv"
+policy_filename = cwd_path + "/results/qlearning_policy.csv"
 q_policy_df.to_csv(policy_filename, index=False)
 
 
@@ -305,5 +307,5 @@ first_b_df = filtered_df.groupby('time_stamp').first().reset_index()
 
 # Select the necessary columns
 result_df = first_b_df[['time_stamp', 'state']]
-q_threshold_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/qlearning_threshold.csv"
+q_threshold_filename = cwd_path + "/results/qlearning_threshold.csv"
 result_df.to_csv(q_threshold_filename, index=False)
