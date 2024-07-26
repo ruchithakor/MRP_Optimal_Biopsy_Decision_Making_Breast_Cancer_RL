@@ -38,3 +38,11 @@ Clone the repository to your local machine:
 ```bash
 git clone https://github.com/ruchithakor/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL.git
 cd MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL
+```
+
+### Running the Code
+Navigate to the directory MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL and run the scripts. Example given below for running backward Induction file:
+```bash
+cd MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL
+python code/backward_induction.py
+```
