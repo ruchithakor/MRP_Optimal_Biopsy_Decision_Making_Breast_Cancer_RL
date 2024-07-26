@@ -4,16 +4,18 @@
 # Import required packages
 import numpy as np
 import pandas as pd
+from pathlib import Path
 
 # Define the set of states, actions, rewards, and transition probabilities
-all_women_data = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/all_women_data.csv")
+cwd_path = str(Path.cwd())
+all_women_data = pd.read_csv(cwd_path + "/dataset/all_women_data.csv")
 S = np.sort(all_women_data["Risk Score"].unique())
 
 A = ["AM", "B"]  # Actions: Annual Mammogram (AM) and Biopsy (B)
 T = 60  # Time steps, e.g., from age 40 to 100
 
 # Read the rewards from the CSV file into a pandas DataFrame
-rewards_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/rewards.csv")
+rewards_df = pd.read_csv(cwd_path + "dataset/rewards.csv")
 
 # Convert the DataFrame into a dictionary with the required format for the MDP
 # The dictionary will be structured as R[age][state][action]
@@ -24,7 +26,7 @@ R = {row["age"]: {
     } for _, row in rewards_df.iterrows()}
 
 # Read the transition probabilities from the CSV file 'transitions.csv' is in the current working directory
-transitions_df = pd.read_csv("/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/dataset/state_transition_probabilities.csv")
+transitions_df = pd.read_csv(cwd_path + "/dataset/state_transition_probabilities.csv")
 
 # Initialize the transition probabilities dictionary for each age
 P = {age: {} for age in range(40, 100)}
@@ -184,7 +186,7 @@ for age in range(40, 100):
 # Create a DataFrame from the list of tuples
 df = pd.DataFrame(data)
 # Save the transition probabilities to a CSV file
-results_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/backward_induction_policy.csv"
+results_filename = cwd_path + "/results/backward_induction_policy.csv"
 df.to_csv(results_filename, index = False)
 
 # Get the threshold for biopsy at each age
@@ -196,5 +198,5 @@ first_b_df = filtered_df.groupby("time_stamp").first().reset_index()
 
 # Select the necessary columns and save to csv file
 result_df = first_b_df[["time_stamp", "state"]]
-threshold_filename = "/Users/ruchithakor/Downloads/Masters_Docs/MRP/MRP_Optimal_Biopsy_Decision_Making_Breast_Cancer_RL/results/backward_induction_threshold.csv"
+threshold_filename = cwd_path + "/results/backward_induction_threshold.csv"
 result_df.to_csv(threshold_filename, index = False)
