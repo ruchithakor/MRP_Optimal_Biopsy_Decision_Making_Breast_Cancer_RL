@@ -50,7 +50,7 @@ for ind, row in transitions_df.iterrows():
 for age in range(40, 100):
     for state in S:  
         if age not in P[age]:
-            P[age][state] = {"AM": {age: 1}, "B": {100: 1}}  # Self-loop for 'AM', transition to 100 for 'B'
+            P[age][state] = {"AM": {state: 1}, "B": {100: 1}}  # Self-loop for 'AM', transition to 100 for 'B'
         else:
             if age != 100:  # State 100 is absorbing
                 remaining_prob = 1 - sum(P[age][state]["AM"].values())
